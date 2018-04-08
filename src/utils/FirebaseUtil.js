@@ -10,14 +10,10 @@ const FirebaseUtil = function () {
     this.signIn = function (role, onAuthenticationCallBack) {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
-            const token = result.credential.accessToken;
             const user = result.user;
-            onAuthenticationCallBack(role);
+            onAuthenticationCallBack(true, role, user.uid);
         }).catch(function (error) {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            const email = error.email;
-            const credential = error.credential;
+            onAuthenticationCallBack(false);            
         });
     }
 
@@ -30,7 +26,9 @@ const FirebaseUtil = function () {
     this.checkIsAuthenticated = function (callBack) {
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
-                callBack();
+                callBack(true, '', user);
+            } else {
+                callBack(false);
             }
         });
     }

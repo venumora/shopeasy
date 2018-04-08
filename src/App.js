@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
 import './App.css';
 import LandingPage from './components/LandingPage';
+import PreLoader from './components/PreLoader';
 import FirebaseUtil from './utils/FirebaseUtil';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      isAuthenticated: false,
+      loading: true
     }
 
     this.handleSignIn = this.handleSignIn.bind(this);
-    this.handleSignOut = this.handleSignOut.bind(this);    
+    this.handleSignOut = this.handleSignOut.bind(this);
+    this.signOut = this.signOut.bind(this);    
   }
 
-  handleSignIn() {
-    this.setState({authenticated: true});
+  handleSignIn(isAuthenticated, role, user) {
+    this.setState({ isAuthenticated: isAuthenticated, loading: false });
   }
 
   handleSignOut() {
-    this.setState({authenticated: false});
+    this.setState({ isAuthenticated: false, loading: false });
+  }
+
+  signOut() {
+    this.setState({ loading: true });    
+    FirebaseUtil.signOut(this.handleSignOut)
   }
 
   componentWillMount() {
@@ -30,11 +38,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LandingPage onAuthentication={this.handleSignIn} />
+        <PreLoader loading={this.state.loading} />
         {
-          this.state.authenticated &&
+          !this.state.isAuthenticated &&
+          <LandingPage onAuthentication={this.handleSignIn} />
+        }
+        {
+          this.state.isAuthenticated &&
           <div class="fixed-action-btn">
-            <a onClick={() => FirebaseUtil.signOut(this.handleSignOut)} title="Sign Out" class="btn-floating btn-small red"><i class="material-icons">power_settings_new</i></a>
+            <a onClick={this.signOut} title="Sign Out" class="btn-floating btn-small red"><i class="material-icons">power_settings_new</i></a>
           </div>
         }
       </div>
