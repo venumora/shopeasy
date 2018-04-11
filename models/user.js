@@ -1,28 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const HeadlineSchema = new Schema({
-  title: {
+const UserSchema = new Schema({
+  id: {
     type: String,
     required: true
   },
-  link: {
+  name: {
     type: String,
     required: true
   },
-  description: {
+  role: {
     type: String,
-    required: true
-  },
-  saved: {
-    type: Boolean,
     required: true,
-    default: false
-  },
-  notes: [{
-    type: Schema.Types.ObjectId,
-    ref: "Note"
-  }]
+    enum: ["customer", "store"]    
+  }
 });
 
-const Headline = mongoose.model("Headline", HeadlineSchema);
-module.exports = Headline;
+const User = mongoose.model("User", UserSchema);
+module.exports = User;
