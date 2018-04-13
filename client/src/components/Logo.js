@@ -6,12 +6,12 @@ class Logo extends Component {
         <div className={`circle hoverable bold center-align se-logo-${this.props.sizeVariant}`}>
           <div className="col m6 s12 responsive-half lime darken-1 full-height">
             <div className="valign-wrapper full-height">
-              <h4 className="col s12 text-shadow">Shop</h4>
+              <h1 className="col s12 text-shadow">Shop</h1>
             </div>
           </div>
           <div className="col m6 s12 responsive-half deep-orange darken-1 full-height">
             <div className="valign-wrapper full-height">
-              <h4 className="col s12 text-shadow">Easy</h4>
+              <h1 className="col s12 text-shadow">Easy</h1>
             </div>
           </div>
         </div>
