@@ -5,6 +5,10 @@ import PreLoader from './components/PreLoader';
 import FirebaseUtil from './utils/FirebaseUtil';
 import API from './utils/API';
 import Materialize from 'materialize-css';
+import NoMatch from './components/NoMatch';
+import Home from './components/Home';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 
 class App extends Component {
   constructor(props) {
@@ -79,24 +83,24 @@ class App extends Component {
   }
 
   render() {
+    const { uid, name, photoURL, role } = this.state;
+    const user = { uid, name, photoURL, role };
     return (
       <div className="App">
-        <PreLoader loading={this.state.loading} />
-        {
-          !this.state.isAuthenticated &&
-          <LandingPage onAuthentication={this.handleSignIn} />
-        }
-        {
-          this.state.isAuthenticated &&
-          <div className="fixed-action-btn">
-            <a className="btn-floating hoverable btn-large red">
-              { this.state.photoURL && <img src={this.state.photoURL} alt={this.state.name.slice(0, 2)} className="circle profile-pic responsive-img valign" /> }
-            </a>
-            <ul>
-              <li><a onClick={this.signOut} title="Sign Out" className="btn-floating btn-small red"><i className="material-icons">power_settings_new</i></a></li>
-            </ul>
-          </div>
-        }
+        <PreLoader loading={this.state.loading} />        
+        <Router>
+          <Switch>
+            {
+              !this.state.isAuthenticated &&
+              <Route exact path="/" render={()=><LandingPage user={user} onAuthentication={this.handleSignIn} />} />
+            }
+            {
+              this.state.isAuthenticated &&
+              <Route exact path="/" render={()=><Home user={user} signOut={this.signOut} />} />
+            }
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
       </div>
     );
   }
