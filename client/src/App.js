@@ -9,6 +9,7 @@ import NoMatch from './components/NoMatch';
 import StoreHome from './components/StoreHome';
 import CustomerHome from './components/CustomerHome';
 import CreateStore from './components/CreateStore';
+import CreateProduct from './components/CreateProduct';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends Component {
@@ -128,12 +129,12 @@ class App extends Component {
               <Route path="/" render={() => <LandingPage user={user} onAuthentication={this.handleSignIn} />} />
             }
             {
-              this.state.isAuthenticated && role === 'store' &&
-              <Route exact path="/" render={() => <StoreHome user={user} />} />
-            }
-            {
               this.state.isAuthenticated && role === 'customer' &&
               <Route exact path="/" render={() => <CustomerHome user={user} />} />
+            }
+            {
+              this.state.isAuthenticated && role === 'store' &&
+              <Route exact path="/" render={() => <StoreHome user={user} />} />
             }
             {
               this.state.isAuthenticated && role === 'store' && !user.store &&
@@ -142,6 +143,10 @@ class App extends Component {
             {
               this.state.isAuthenticated && role === 'store' && user.store &&
               <Route exact path="/createstore" render={() => <StoreHome user={user} />} />
+            }
+            {
+              this.state.isAuthenticated && role === 'store' && user.store &&
+              <Route exact path="/createproduct" render={() => <CreateProduct user={user} storeId={user.store._id} />} />     
             }
             <Route component={NoMatch} />
           </Switch>

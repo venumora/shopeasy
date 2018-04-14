@@ -1,17 +1,19 @@
 const db = require("../models");
+const ObjectId = require('mongodb').ObjectID;
+
 
 // Defining methods for the productsController
 module.exports = {
   findAll: function(req, res) {
     db.Product
       .find(req.query)
-      .sort({ date: -1 })
+      .sort({ name: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   findById: function(req, res) {
     db.Product
-      .findById(req.params.id)
+      .find({store: ObjectId(req.params.id)})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

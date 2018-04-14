@@ -10,6 +10,7 @@ const productSchema = new Schema({
   },
   price: { type: Number, required: false },
   keywords: { type: Array, required: false },  
+  photoUrl: { type: String, required: false },  
 });
 
 const Product = mongoose.model("Product", productSchema);

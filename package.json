@@ -23,6 +23,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
     "moment": "^2.22.0",
-    "mongoose": "^4.11.7"
+    "mongoose": "^4.11.7",
+    "scandit-sdk": "^2.3.0"
   }
 }

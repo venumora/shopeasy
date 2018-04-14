@@ -3,6 +3,7 @@ const storesController = require("../../controllers/storesController");
 
 // Matches with "/api/stores"
 router.route("/")
+  .get(storesController.findAll)
   .post(storesController.create);
 
 // Matches with "/api/stores/:id"
