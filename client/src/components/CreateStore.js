@@ -30,7 +30,7 @@ class CreateStore extends Component {
                 name: this.state.name,
                 locationId: locationDetails.id,
                 logoUrl: this.state.logoUrl,
-                user: this.props.user._id,
+                user: this.props.userId,
             };
 
             API.saveStore(storeData).then(() => {
@@ -79,28 +79,11 @@ class CreateStore extends Component {
     }
 
     render() {
-        const { user } = this.props;
         return (
-            <div className="full-height lime darken-1">
+            <div className="lime darken-1">
                 <div className="ui vertical masthead aligned segment">
                     <div className="ui container full-height pos-rel">
                         <div className="ui grid">
-                            <div className="four wide computer five wide tablet sixteen wide mobile column">
-                                <div className="ui card profile-card">
-                                    <div className="image">
-                                        <img alt={user.name} src={user.photoURL} />
-                                    </div>
-                                    <div className="content">
-                                        <a className="header">{user.name}</a>
-                                        <div className="description">
-                                            You are about to create a store
-                                        </div>
-                                    </div>
-                                    <div className="extra content">
-                                        We use Google Places API to locate Stores
-                                    </div>
-                                </div>
-                            </div>
                             <div className="twelve wide computer eleven wide tablet sixteen wide mobile column">
                                 <form className="ui form" onSubmit={this.handleOnSubmit} >
                                     <div className="field">

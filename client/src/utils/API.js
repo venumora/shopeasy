@@ -36,5 +36,21 @@ export default {
   // Saves a product to the database
   saveProduct: function (productData) {
     return axios.post("/api/products", productData);
+  },
+  // Gets all placements
+  getPlacements: function () {
+    return axios.get("/api/placements");
+  },
+  // Gets the placement with the given id
+  getPlacement: function (id) {
+    return axios.get("/api/placements/" + id);
+  },
+  // Deletes the placement with the given id
+  deletePlacement: function (id) {
+    return axios.delete("/api/placements/" + id);
+  },
+  // Saves a placement to the database
+  savePlacement: function (placementData) {
+    return axios.post("/api/placements", placementData);
   }
 };

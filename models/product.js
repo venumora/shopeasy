@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema({
   id: { type: String, required: true },
   name: { type: String, required: true },
-  store: {
+  placements: [{
     type: Schema.Types.ObjectId,
-    ref: "Store"
-  },
+    ref: "ProductPlacement"
+  }],
   price: { type: Number, required: false },
   keywords: { type: Array, required: false },  
-  photoUrl: { type: String, required: false },  
+  photoURL: { type: String, required: false },  
 });
 
 const Product = mongoose.model("Product", productSchema);

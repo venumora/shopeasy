@@ -13,6 +13,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
     enum: ["customer", "store"]    
+  },
+  store: {
+    type: Schema.Types.ObjectId,
+    ref: "Store"
   }
 });
 

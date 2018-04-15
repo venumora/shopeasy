@@ -13,10 +13,14 @@ const StoreSchema = new Schema({
     type: String,
     required: true
   },
-  user: {
+  products: [{
     type: Schema.Types.ObjectId,
-    ref: "User"
-  }
+    ref: "Product"
+  }],
+  placements: [{
+    type: Schema.Types.ObjectId,
+    ref: "Placement"
+  }]
 });
 
 const Store = mongoose.model("Store", StoreSchema);

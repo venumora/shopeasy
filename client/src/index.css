@@ -89,6 +89,23 @@ body {
   top: 14px;
 }
 
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.generate-barcode {
+  right: 0;
+  top: 37px;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
 @media only screen and (min-width: 601px) {
   .responsive-half {
     height: 100%;

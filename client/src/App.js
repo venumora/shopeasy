@@ -10,19 +10,17 @@ import StoreHome from './components/StoreHome';
 import CustomerHome from './components/CustomerHome';
 import CreateStore from './components/CreateStore';
 import CreateProduct from './components/CreateProduct';
+import CreatePlacement from './components/CreatePlacement';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      uid: '',
-      _id: '',
-      name: '',
+      user: null,     
       isAuthenticated: false,
       loading: true,
-      photoURL: '',
-      role: ''
+      photoURL: ''
     }
 
     this.handleSignIn = this.handleSignIn.bind(this);
@@ -39,12 +37,12 @@ class App extends Component {
     if (isAuthenticated) {
       API.getUser(user.uid).then((userFromDB) => {
         if (userFromDB && userFromDB.data) {
-          this.getStoreData(userFromDB, user.photoURL);
+          this.updateState(userFromDB, user.photoURL);
         } else {
           if (role) {
             API.saveUser({ id: user.uid, name: user.displayName, role: role }).then((newUser) => {
               if (newUser && newUser.data) {
-                this.getStoreData(newUser, user.photoURL);
+                this.updateState(newUser, user.photoURL);
               }
             });
           } else {
@@ -57,43 +55,13 @@ class App extends Component {
     }
   }
 
-  getStoreData(dbUser, photoURL) {
-    if (dbUser.data.role === 'store') {
-      API.getStore(dbUser.data._id).then(store => {
-        if (store && store.data) {
-          this.setState({
-            uid: dbUser.data.id,
-            _id: dbUser.data._id,
-            name: dbUser.data.name,
-            isAuthenticated: true,
-            loading: false,
-            photoURL: photoURL,
-            role: dbUser.data.role,
-            store: store.data
-          });
-        } else {
-          this.setState({
-            uid: dbUser.data.id,
-            _id: dbUser.data._id,
-            name: dbUser.data.name,
-            isAuthenticated: true,
-            loading: false,
-            photoURL: photoURL,
-            role: dbUser.data.role,
-          });
-        }
-      });
-    } else {
-      this.setState({
-        uid: dbUser.data.id,
-        _id: dbUser.data._id,
-        name: dbUser.data.name,
-        isAuthenticated: true,
-        loading: false,
-        photoURL: photoURL,
-        role: dbUser.data.role
-      });
-    }
+  updateState(dbUser, photoURL) {
+    this.setState({
+      user: dbUser.data,
+      isAuthenticated: true,
+      loading: false,
+      photoURL: photoURL,
+    });
   }
 
   handleSignOut() {
@@ -111,54 +79,70 @@ class App extends Component {
   }
 
   render() {
-    if (this.state.loading) {
+    const { user, photoURL, isAuthenticated, loading } = this.state;    
+    let store = null, products=[], placements=[];
+    
+    if (loading) {
       return (
         <div className="App">
-          <PreLoader loading={this.state.loading} />
+          <PreLoader loading={loading} />
         </div>
       );
     }
-    const { uid, name, photoURL, role, store, _id } = this.state;
-    const user = { uid, name, photoURL, role, store, _id };
+
+    if (user) {
+      user.photoURL = photoURL;
+      store = user.store;
+
+      if (store) {
+        products = store.products;
+        placements = store.placements;
+      }
+    }
+
     return (
       <div className="App">
         <Router>
           <Switch>
             {
-              !this.state.isAuthenticated &&
+              !isAuthenticated &&
               <Route path="/" render={() => <LandingPage user={user} onAuthentication={this.handleSignIn} />} />
             }
             {
-              this.state.isAuthenticated && role === 'customer' &&
+              isAuthenticated && user.role === 'customer' &&
               <Route exact path="/" render={() => <CustomerHome user={user} />} />
             }
             {
-              this.state.isAuthenticated && role === 'store' &&
+              isAuthenticated && user.role === 'store' &&
               <Route exact path="/" render={() => <StoreHome user={user} />} />
             }
             {
-              this.state.isAuthenticated && role === 'store' && !user.store &&
-              <Route exact path="/createstore" render={() => <CreateStore user={user} />} />
+              isAuthenticated && user.role === 'store' && !store &&
+              <Route exact path="/createstore" render={() => <CreateStore userId={user._id} />} />
             }
             {
-              this.state.isAuthenticated && role === 'store' && user.store &&
+              isAuthenticated && user.role === 'store' && store &&
               <Route exact path="/createstore" render={() => <StoreHome user={user} />} />
             }
             {
-              this.state.isAuthenticated && role === 'store' && user.store &&
-              <Route exact path="/createproduct" render={() => <CreateProduct user={user} storeId={user.store._id} />} />     
+              isAuthenticated && user.role === 'store' && store &&
+              <Route exact path="/createproduct" render={() => <CreateProduct placements={placements} productsLength={products.length} storeId={store._id} />} />     
+            }
+            {
+              isAuthenticated && user.role === 'store' && store &&
+              <Route exact path="/createplacement" render={() => <CreatePlacement placementsLength={placements.length} storeId={store._id} />} />     
             }
             <Route component={NoMatch} />
           </Switch>
         </Router>
         {
-          this.state.isAuthenticated &&
+          isAuthenticated &&
           <div className="fixed-action-btn">
-            <a className="btn-floating hoverable btn-large red">
-              {photoURL && <img src={photoURL} alt={name.slice(0, 2)} className="circle profile-pic valign" />}
+            <a className={`btn-floating hoverable btn-large ${user.role === 'customer' ? 'lime': 'red'}`}>
+              {user.photoURL && <img src={photoURL} alt={user.name.slice(0, 2)} className="circle profile-pic valign" />}
             </a>
             <ul>
-              <li><a onClick={this.signOut} title="Sign Out" className="btn-floating btn-small red"><i className="material-icons">power_settings_new</i></a></li>
+              <li><a onClick={this.signOut} title="Sign Out" className={`btn-floating btn-small ${user.role === 'customer' ? 'lime': 'red'}`}><i className="material-icons">power_settings_new</i></a></li>
             </ul>
           </div>
         }

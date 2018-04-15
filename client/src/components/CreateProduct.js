@@ -7,15 +7,19 @@ class CreateProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: '',
-            name: '',            
-            price: '',
-            keywords: ''            
+            id: `ORGA1R${props.productsLength + 1}`,
+            name: `Organic Product ${props.productsLength + 1}`,
+            price: '15',
+            keywords: [],
+            placements: ['5ad309d3baa96b4140e3b8c8', '5ad309f5baa96b4140e3b8c9'],
+            photoURL: 'https://www.ocado.com/productImages/653/65353011_0_640x640.jpg?identifier=60f2512e90321b2b2790b14af220ba86'
         }
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleOnScanned = this.handleOnScanned.bind(this);
+        this.handleOnPlacementScanned = this.handleOnPlacementScanned.bind(this);
+        this.handleAddPlacement = this.handleAddPlacement.bind(this);
     }
 
 
@@ -24,6 +28,11 @@ class CreateProduct extends Component {
         const options = {
             placeholder: 'Enter a Keyword',
             secondaryPlaceholder: 'Add more Keywords',
+            data: [{
+                tag: 'organic',
+            }, {
+                tag: `product ${this.props.productsLength + 1}`,
+            }]
         }
 
         this.keywordsInstance = Materialize.Chips.init(elem, options);
@@ -38,7 +47,23 @@ class CreateProduct extends Component {
     }
 
     handleOnScanned(id) {
-        this.setState({id});
+        this.setState({ id });
+    }
+
+    handleOnPlacementScanned(id, index) {
+        const { placements } = this.state;
+        debugger;
+        const dbPlacement = this.props.placements.filter(p => p.id === id);
+        if (dbPlacement && dbPlacement.length) {
+            placements[index] = dbPlacement[0]._id;
+            this.setState({ placements });
+        }
+    }
+
+    handleAddPlacement() {
+        const { placements } = this.state;
+        placements.push('');
+        this.setState({ placements })
     }
 
     handleOnSubmit(event) {
@@ -47,10 +72,12 @@ class CreateProduct extends Component {
         if (this.state.id) {
             const productData = {
                 id: this.state.id,
-                name: this.state.name,            
+                name: this.state.name,
                 store: this.props.storeId,
                 price: this.state.price,
-                keywords: keywords 
+                keywords: keywords,
+                placements: this.state.placements,
+                photoURL: this.state.photoURL
             };
 
             API.saveProduct(productData).then(() => {
@@ -60,29 +87,14 @@ class CreateProduct extends Component {
     }
 
     render() {
-        const { user } = this.props;
+        const { placements } = this.state;
+
         return (
-            <div className="full-height lime darken-1">
+            <div className="lime darken-1">
                 <div className="ui vertical masthead aligned segment">
                     <div className="ui container full-height pos-rel">
                         <div className="ui grid">
-                            <div className="four wide computer five wide tablet sixteen wide mobile column">
-                                <div className="ui card profile-card">
-                                    <div className="image">
-                                        <img alt={user.name} src={user.photoURL} />
-                                    </div>
-                                    <div className="content">
-                                        <a className="header">{user.name}</a>
-                                        <div className="description">
-                                            You are about to create a product
-                                        </div>
-                                    </div>
-                                    <div className="extra content">
-                                        Use camera se to scan Bar codes on Products
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="twelve wide computer eleven wide tablet sixteen wide mobile column">
+                            <div className="column">
                                 <form className="ui form" onSubmit={this.handleOnSubmit} >
                                     <div className="field">
                                         <label>Name of the Product</label>
@@ -90,7 +102,7 @@ class CreateProduct extends Component {
                                     </div>
                                     <div className="field">
                                         <label>Bar code ID</label>
-                                        <SEScanner value={this.state.id} onScanned={this.handleOnScanned}/>
+                                        <SEScanner value={this.state.id} placeholder="Product Bar Code" onScanned={this.handleOnScanned} />
                                     </div>
                                     <div className="field">
                                         <label>Price</label>
@@ -98,11 +110,26 @@ class CreateProduct extends Component {
                                     </div>
                                     <div className="field">
                                         <label>Keywords</label>
-                                        <div className="chips chips-autocomplete"> 
+                                        <div className="chips chips-autocomplete">
                                             <input type="text" name="keywords" />
                                         </div>
                                     </div>
-                                    <button className="ui button" type="submit">Submit</button>
+                                    <div className="field">
+                                        <label>Image link of the Product</label>
+                                        <input onChange={this.handleChange} type="text" value={this.state.photoURL} name="photoURL" placeholder="Image link of the Product" />
+                                    </div>
+                                    <div className="field">
+                                        <label>Placements</label>
+                                        {
+                                            placements.map((placement, index) => {
+                                                return <div key={index} className="field">
+                                                    <SEScanner placeholder="Placement Bar Code" value={placement} index={index} onScanned={this.handleOnPlacementScanned} />
+                                                </div>;
+                                            })
+                                        }
+                                        <button className="ui button" onClick={this.handleAddPlacement} type="button">Add Another Placement</button>
+                                    </div>
+                                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
                                 </form>
                             </div>
                         </div>

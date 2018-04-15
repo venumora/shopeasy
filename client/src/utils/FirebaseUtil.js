@@ -3,7 +3,9 @@ import firebase from 'firebase';
 
 const FirebaseUtil = function () {
     this.initialize = function () {
-        firebase.initializeApp(firebaseConfig)
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig)
+        }
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
     };
 
@@ -13,13 +15,13 @@ const FirebaseUtil = function () {
             const user = result.user;
             onAuthenticationCallBack(true, role, user);
         }).catch(function (error) {
-            onAuthenticationCallBack(false);            
+            onAuthenticationCallBack(false);
         });
     }
 
     this.signOut = function (handleSignOut) {
-        firebase.auth().signOut().then(function() {
-            handleSignOut();            
+        firebase.auth().signOut().then(function () {
+            handleSignOut();
         });
     }
 

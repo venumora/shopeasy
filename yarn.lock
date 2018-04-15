@@ -82,6 +82,14 @@ array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/array-flatten/-/array-flatten-1.1.1.tgz#9a5f699051b1e7073328f2a008968b64ea2955d2"
 
+array-parallel@~0.1.0:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/array-parallel/-/array-parallel-0.1.3.tgz#8f785308926ed5aa478c47e64d1b334b6c0c947d"
+
+array-series@~0.1.0:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/array-series/-/array-series-0.1.5.tgz#df5d37bfc5c2ef0755e2aa4f92feae7d4b5a972f"
+
 array-unique@^0.3.2:
   version "0.3.2"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
@@ -145,6 +153,12 @@ babel-runtime@^6.26.0:
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
+
+barcode@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/barcode/-/barcode-0.1.0.tgz#49b163150814a3f3fb0fa0c0aa2874d28a0f38d7"
+  dependencies:
+    gm "1.16.0"
 
 base@^0.11.1:
   version "0.11.2"
@@ -456,6 +470,10 @@ dashdash@^1.12.0:
 date-fns@^1.23.0:
   version "1.29.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
+
+debug@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.0.tgz#f5be05ec0434c992d79940e50b2695cfb2e01b08"
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -816,6 +834,16 @@ global-dirs@^0.1.0:
   resolved "https://registry.yarnpkg.com/global-dirs/-/global-dirs-0.1.1.tgz#b319c0dd4607f353f3be9cca4c72fc148c49f445"
   dependencies:
     ini "^1.3.4"
+
+gm@1.16.0:
+  version "1.16.0"
+  resolved "https://registry.yarnpkg.com/gm/-/gm-1.16.0.tgz#2b3d37b25fb349286e829bf1ccf097f4de4fba88"
+  dependencies:
+    array-parallel "~0.1.0"
+    array-series "~0.1.0"
+    debug "0.7.0"
+    stream-to-buffer "~0.0.1"
+    through "~2.3.1"
 
 got@^6.7.1:
   version "6.7.1"
@@ -2020,6 +2048,10 @@ stream-combiner@~0.0.4:
   resolved "https://registry.yarnpkg.com/stream-combiner/-/stream-combiner-0.0.4.tgz#4d5e433c185261dde623ca3f44c586bcf5c4ad14"
   dependencies:
     duplexer "~0.1.1"
+
+stream-to-buffer@~0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/stream-to-buffer/-/stream-to-buffer-0.0.1.tgz#ab483d59a1ca71832de379a255f465b665af45c1"
 
 string-width@^1.0.1, string-width@^1.0.2:
   version "1.0.2"

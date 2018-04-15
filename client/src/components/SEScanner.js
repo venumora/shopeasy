@@ -18,27 +18,32 @@ class SEScanner extends Component {
     handleOnClick() {
         if (this.state.modalInstance) {
             this.state.modalInstance.open();
-            ScanditSDK.BarcodePicker.create(document.getElementById("scandit-barcode-picker"), {
-                playSoundOnScan: true,
-                vibrateOnScan: true
-            }).then((barcodePicker) => {
-                var scanSettings = new ScanditSDK.ScanSettings({
-                    enabledSymbologies: ["ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
-                    codeDuplicateFilter: 1000
+            if (!this.barcodePicker) {
+                ScanditSDK.BarcodePicker.create(this.barCodeScanner, {
+                    playSoundOnScan: true,
+                    vibrateOnScan: true
+                }).then((barcodePicker) => {
+                    this.barcodePicker = barcodePicker;
+                    var scanSettings = new ScanditSDK.ScanSettings({
+                        enabledSymbologies: ["ean8", "ean13", "upca", "upce", "code128", "code39", "code93", "itf"],
+                        codeDuplicateFilter: 1000
+                    });
+                    this.barcodePicker.applyScanSettings(scanSettings);
+                    this.barcodePicker.onScan((scanResult) => {
+                        this.props.onScanned(scanResult.barcodes.reduce((string, barcode) => {
+                            return barcode.data;
+                        }, ""), this.props.index);
+                        this.handleOnClose();
+                    });
                 });
-                barcodePicker.applyScanSettings(scanSettings);
-                barcodePicker.onScan((scanResult) => {
-                    this.props.onScanned(scanResult.barcodes.reduce((string, barcode) => {
-                        return barcode.data;
-                    }, ""));
-                    this.handleOnClose();
-                });
-            });
+            }
         }
     }
 
     handleOnClose() {
         if (this.state.modalInstance) {
+            this.barcodePicker.destroy();
+            this.barcodePicker = null;
             this.state.modalInstance.close();
         }
     }
@@ -50,7 +55,7 @@ class SEScanner extends Component {
             preloadCameras: false
         })
 
-        let modalInstance = Materialize.Modal.init(document.getElementById('scannerModal'));
+        let modalInstance = Materialize.Modal.init(this.scannerModal);
         this.setState({ modalInstance });
     }
 
@@ -58,11 +63,11 @@ class SEScanner extends Component {
         return (
             <div>
                 <div className="field pos-rel">
-                    <input type="text" readOnly value={this.props.value} placeholder="Bar Code" />
-                    <button className="btn waves-effect waves-light pos-abs scandit" onClick={this.handleOnClick} type="submit" name="action"><i className="material-icons">camera_enhance</i></button>
+                    <input type="text" readOnly value={this.props.value} placeholder={this.props.placeholder} />
+                    <button className="btn waves-effect waves-light pos-abs scandit" onClick={this.handleOnClick} type="button" name="action"><i className="material-icons">camera_enhance</i></button>
                 </div>
-                <div id="scannerModal" className="modal">
-                    <div id="scandit-barcode-picker" className="modal-content left-align">
+                <div ref={s => this.scannerModal = s} className="modal">
+                    <div ref={s => this.barCodeScanner = s} className="modal-content left-align">
                     </div>
                     <div className="modal-footer">
                         <a className="btn modal-action modal-close waves-effect red waves-red">Cancel</a>
