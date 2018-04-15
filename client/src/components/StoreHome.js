@@ -35,8 +35,17 @@ class StoreHome extends Component {
 
   render() {
     const { user } = this.props;
-    const { store } = user;
-    const { placements, products } = store;
+    let store = null, products = [], placements = [];
+
+    if (user) {
+      store = user.store;
+
+      if (store) {
+        products = store.products;
+        placements = store.placements;
+      }
+    }
+
     return (
       <div className="lime darken-1">
         <div className="ui vertical masthead aligned segment">
