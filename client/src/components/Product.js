@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
 import { withRouter } from 'react-router';
-import Materialize from 'materialize-css';
-
 
 class Product extends Component {
     constructor(props) {
@@ -15,7 +13,7 @@ class Product extends Component {
     componentDidMount() {
         API.getProduct(this.props.match.params.id).then(product => {
             if (product && product.data) {
-                this.setState({ placements: product.data.placements })
+                this.setState({ placements: product.data.placements });
             }
         });
     }

@@ -14,7 +14,7 @@ class CustomerHome extends Component {
   componentDidMount() {
     API.getStores().then(stores => {
       if (stores && stores.data) {
-        this.setState({ stores: stores.data })
+        this.setState({ stores: stores.data });
       }
     });
 
@@ -57,16 +57,16 @@ class CustomerHome extends Component {
                           </div>
                           <div className="content">
                             <a href={`/store/${store._id}`} className="header">{store.name}</a>
-                            <div class="meta">
-                              <span class="date"><i class="map marker alternate icon"></i> Belmond</span>
+                            <div className="meta">
+                              <span className="date"><i className="map marker alternate icon"></i> Belmond</span>
                             </div>
-                            <div class="description">
+                            <div className="description">
                               General stores
                             </div>
                           </div>
-                          <div class="extra content">
+                          <div className="extra content">
                               <a>
-                                <i class="product hunt icon"></i>
+                                <i className="product hunt icon"></i>
                                 {store.products.length} products</a>
                             </div>
                         </div>
