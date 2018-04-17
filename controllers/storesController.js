@@ -5,9 +5,15 @@ const ObjectId = require('mongodb').ObjectID;
 module.exports = {
   findById: function(req, res) {
     db.Store
-      .findOne({ user: ObjectId(req.params.id) })
+      .findOne({ _id: ObjectId(req.params.id) })
       .populate('products')
-      .populate('placements')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'placements',
+          model: 'Placement'
+        }
+      })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -15,7 +21,6 @@ module.exports = {
     db.Store
       .find(req.query)
       .populate('products')
-      .populate('placements')
       .sort({ name: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

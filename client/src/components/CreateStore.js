@@ -80,7 +80,7 @@ class CreateStore extends Component {
 
     render() {
         return (
-            <div className="lime darken-1">
+            <div className="lime darken-1 full-height">
                 <div className="ui vertical masthead aligned segment">
                     <div className="ui container full-height pos-rel">
                         <div className="ui grid">

@@ -7,6 +7,8 @@ import API from './utils/API';
 import Materialize from 'materialize-css';
 import NoMatch from './components/NoMatch';
 import StoreHome from './components/StoreHome';
+import Store from './components/Store';
+import Product from './components/Product';
 import CustomerHome from './components/CustomerHome';
 import CreateStore from './components/CreateStore';
 import CreateProduct from './components/CreateProduct';
@@ -17,7 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,     
+      user: null,
       isAuthenticated: false,
       loading: true,
       photoURL: ''
@@ -79,9 +81,9 @@ class App extends Component {
   }
 
   render() {
-    const { user, photoURL, isAuthenticated, loading } = this.state;    
-    let store = null, products=[], placements=[];
-    
+    const { user, photoURL, isAuthenticated, loading } = this.state;
+    let store = null, products = [], placements = [];
+
     if (loading) {
       return (
         <div className="App">
@@ -126,11 +128,19 @@ class App extends Component {
             }
             {
               isAuthenticated && user.role === 'store' && store &&
-              <Route exact path="/createproduct" render={() => <CreateProduct placements={placements} productsLength={products.length} storeId={store._id} />} />     
+              <Route exact path="/createproduct" render={() => <CreateProduct placements={placements} productsLength={products.length} storeId={store._id} />} />
             }
             {
               isAuthenticated && user.role === 'store' && store &&
-              <Route exact path="/createplacement" render={() => <CreatePlacement placementsLength={placements.length} storeId={store._id} />} />     
+              <Route exact path="/createplacement" render={() => <CreatePlacement placementsLength={placements.length} storeId={store._id} />} />
+            }
+            {
+              isAuthenticated && user.role === 'customer' &&
+              <Route exact path="/store/:id" render={() => <Store />} />
+            }
+            {
+              isAuthenticated && user.role === 'customer' &&
+              <Route exact path="/product/:id" render={() => <Product />} />
             }
             <Route component={NoMatch} />
           </Switch>
@@ -138,11 +148,11 @@ class App extends Component {
         {
           isAuthenticated &&
           <div className="fixed-action-btn">
-            <a className={`btn-floating hoverable btn-large ${user.role === 'customer' ? 'lime': 'red'}`}>
+            <a className={`btn-floating hoverable btn-large ${user.role === 'customer' ? 'lime' : 'red'}`}>
               {user.photoURL && <img src={photoURL} alt={user.name.slice(0, 2)} className="circle profile-pic valign" />}
             </a>
             <ul>
-              <li><a onClick={this.signOut} title="Sign Out" className={`btn-floating btn-small ${user.role === 'customer' ? 'lime': 'red'}`}><i className="material-icons">power_settings_new</i></a></li>
+              <li><a onClick={this.signOut} title="Sign Out" className={`btn-floating btn-small ${user.role === 'customer' ? 'lime' : 'red'}`}><i className="material-icons">power_settings_new</i></a></li>
             </ul>
           </div>
         }

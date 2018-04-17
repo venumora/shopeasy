@@ -6,7 +6,7 @@ const productSchema = new Schema({
   name: { type: String, required: true },
   placements: [{
     type: Schema.Types.ObjectId,
-    ref: "ProductPlacement"
+    ref: "Placement"
   }],
   price: { type: Number, required: false },
   keywords: { type: Array, required: false },  

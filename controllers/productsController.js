@@ -14,7 +14,7 @@ module.exports = {
   },
   findById: function (req, res) {
     db.Product
-      .find({ store: ObjectId(req.params.id) })
+      .findOne({ _id: ObjectId(req.params.id) })
       .populate('placements')
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
