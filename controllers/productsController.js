@@ -5,8 +5,15 @@ const ObjectId = require('mongodb').ObjectID;
 // Defining methods for the productsController
 module.exports = {
   findAll: function (req, res) {
+    const regQuery = { $regex: new RegExp(req.params.key, 'i') };
+    const query = req.params.key === 'all' ? undefined : {
+      $and: [
+        { store: ObjectId(req.params.store) },
+        { $or: [{ name: regQuery }, { keywords: { $in: [new RegExp(req.params.key, 'i')] } }] }
+      ]
+    };
     db.Product
-      .find(req.query)
+      .find(query)
       .sort({ name: -1 })
       .populate('placements')
       .then(dbModel => res.json(dbModel))

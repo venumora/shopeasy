@@ -22,8 +22,8 @@ export default {
     return axios.post("/api/stores", storeData);
   },
   // Gets all products
-  getProducts: function () {
-    return axios.get("/api/products");
+  getProducts: function (store, key) {
+    return axios.get(`/api/products/${store}/search/${key}`);
   },
   // Gets the product with the given id
   getProduct: function (id) {

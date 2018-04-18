@@ -68,6 +68,7 @@ class App extends Component {
 
   handleSignOut() {
     this.setState({ isAuthenticated: false, loading: false });
+    window.location = '/';
   }
 
   signOut() {

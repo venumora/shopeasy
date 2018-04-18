@@ -7,7 +7,8 @@ class Store extends Component {
         super(props);
         this.state = {
             products: [],
-            searchKey: ''
+            searchKey: '',
+            store: ''
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -16,10 +17,14 @@ class Store extends Component {
     handleOnChange(event) {
         const state = {
         };
-        const value = event.target.value;
+        const value = event.target.value.trim();
 
-        if (value.length > 2) {
-            // TODO: Search
+        if (!value || value.length > 2) {
+            API.getProducts(this.state.store, value || 'all').then(products => {
+                if (products && products.data) {
+                    this.setState({products: products.data});
+                }
+            });
         }
 
         state[event.target.name] = value;
@@ -29,7 +34,7 @@ class Store extends Component {
     componentDidMount() {
         API.getStore(this.props.match.params.id).then(store => {
             if (store && store.data) {
-                this.setState({ products: store.data.products });
+                this.setState({ products: store.data.products, store: store.data._id });
             }
         });
     }
