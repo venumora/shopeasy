@@ -47,8 +47,6 @@ class App extends Component {
                 this.updateState(newUser, user.photoURL);
               }
             });
-          } else {
-            this.signOut();
           }
         }
       });
@@ -88,7 +86,7 @@ class App extends Component {
     if (loading) {
       return (
         <div className="App">
-          <PreLoader loading={loading} />
+          <PreLoader role={user && user.role ? user.role : 'customer'} loading={loading} />
         </div>
       );
     }
@@ -154,6 +152,30 @@ class App extends Component {
             </a>
             <ul>
               <li><a onClick={this.signOut} title="Sign Out" className={`btn-floating btn-small ${user.role === 'customer' ? 'lime' : 'red'}`}><i className="material-icons">power_settings_new</i></a></li>
+              <li className="profile-card">
+                <div className="ui card">
+                  <div className="image">
+                    <img alt={user.name} src={user.photoURL} />
+                  </div>
+                  <div className="content margin-bottom-24">
+                    <a className="header">{user.name}</a>
+                    <div className="description">
+                      {
+                         store ? store.name : user.role === 'store' ? 'You Have not created a Store yet!' : ''
+                      }
+                    </div>
+                  </div>
+                  <div className="extra content">
+                    {
+                      user.role === 'store' &&
+                      <a>
+                        <i className="product hunt icon"></i>
+                        {`You have ${store && products ? products.length : 0} products`}
+                      </a>
+                    }
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         }

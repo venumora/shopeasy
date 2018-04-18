@@ -22,7 +22,7 @@ class Store extends Component {
         if (!value || value.length > 2) {
             API.getProducts(this.state.store, value || 'all').then(products => {
                 if (products && products.data) {
-                    this.setState({products: products.data});
+                    this.setState({ products: products.data });
                 }
             });
         }
@@ -57,29 +57,27 @@ class Store extends Component {
                             </div>
                         </div>
                         <div className="col s12 margin-top-10">
-                            <div className="ui three column grid">
+                            <div className="ui four doubling cards">
                                 {
                                     products.map((product, index) => {
-                                        return <div key={index} className="column">
-                                            <div className="ui fluid card">
-                                                <div className="image">
-                                                    <img className="full-height full-width" alt={product.name} src={product.photoURL} />
-                                                </div>
-                                                <div className="content">
-                                                    <a href={`/product/${product._id}`} className="header">{product.name}</a>
-                                                    {
-                                                        product.placements.map((placement, placementIndex) => {
-                                                            return <div key={placementIndex} className="meta">
-                                                                <span className="date"><i className="map marker alternate icon"></i> {`${placement.section} > ${placement.aisle} > ${placement.rack}`}</span>
-                                                            </div>;
-                                                        })
-                                                    }
-                                                    <div className="description">
-                                                        General products
+                                        return <div key={index} className="card">
+                                            <div className="image">
+                                                <img className="full-height full-width" alt={product.name} src={product.photoURL} />
+                                            </div>
+                                            <div className="content">
+                                                <a href={`/product/${product._id}`} className="header">{product.name}</a>
+                                                {
+                                                    product.placements.map((placement, placementIndex) => {
+                                                        return <div key={placementIndex} className="meta">
+                                                            <span className="date"><i className="map marker alternate icon"></i> {`${placement.section} > ${placement.aisle} > ${placement.rack}`}</span>
+                                                        </div>;
+                                                    })
+                                                }
+                                                <div className="description">
+                                                    General products
                                                         </div>
-                                                </div>
-                                                <div className="extra content">
-                                                </div>
+                                            </div>
+                                            <div className="extra content">
                                             </div>
                                         </div>;
                                     })

@@ -11,7 +11,8 @@ const StoreSchema = new Schema({
   },
   locationId: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   products: [{
     type: Schema.Types.ObjectId,
@@ -20,7 +21,19 @@ const StoreSchema = new Schema({
   placements: [{
     type: Schema.Types.ObjectId,
     ref: "Placement"
-  }]
+  }],
+  address: {
+    type: String
+  },
+  photos: [{
+    type: String
+  }],
+  locationURL: {
+    type: String
+  },
+  phone: {
+    type: String
+  }
 });
 
 const Store = mongoose.model("Store", StoreSchema);

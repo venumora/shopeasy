@@ -11,7 +11,18 @@ mongoose.connect(
   }
 );
 
-const productSeed = [];
+const usersSeed = [
+  {
+    id: "cRHm74IBCxRTtkjeYpTeoDNMeKe2",
+    name: "Venu Mora",
+    role: "store"
+  },
+  {
+    id: "fiWL4OXDA8dKYcZ8RkS0js1saV93",
+    name: "Userone Venu",
+    role: "customer"
+  }
+];
 
 db.Product
   .remove({})

@@ -52,7 +52,6 @@ class CreateProduct extends Component {
 
     handleOnPlacementScanned(id, index) {
         const { placements } = this.state;
-        debugger;
         const dbPlacement = this.props.placements.filter(p => p.id === id);
         if (dbPlacement && dbPlacement.length) {
             placements[index] = dbPlacement[0]._id;

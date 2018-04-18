@@ -35,6 +35,9 @@ class Modal extends Component {
     componentDidMount() {
         let modalInstance = Materialize.Modal.init(document.getElementById('seModal'));
         this.setState({ modalInstance });
+        if (this.props.show) {
+            modalInstance.open();
+        }
     }
 
     render() {
