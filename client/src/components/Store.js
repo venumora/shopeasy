@@ -42,48 +42,44 @@ class Store extends Component {
     render() {
         const { products } = this.state;
         return (
-            <div className="full-height deep-orange darken-1">
-                <div className="ui vertical masthead aligned segment">
-                    <div className="ui container full-height pos-rel">
-                        <div className="row white">
-                            <div className="col s12">
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <i className="material-icons prefix">search</i>
-                                        <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
-                                        <label htmlFor="autocomplete-input">What are you looking for?</label>
+            <div className="ui container margin-top-10">
+                <div className="row white">
+                    <div className="col s12">
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <i className="material-icons prefix">search</i>
+                                <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
+                                <label htmlFor="autocomplete-input">What are you looking for?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col s12 margin-top-10">
+                    <div className="ui four doubling cards">
+                        {
+                            products.map((product, index) => {
+                                return <div key={index} className="card">
+                                    <div className="image">
+                                        <img className="full-height full-width" alt={product.name} src={product.photoURL} />
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col s12 margin-top-10">
-                            <div className="ui four doubling cards">
-                                {
-                                    products.map((product, index) => {
-                                        return <div key={index} className="card">
-                                            <div className="image">
-                                                <img className="full-height full-width" alt={product.name} src={product.photoURL} />
-                                            </div>
-                                            <div className="content">
-                                                <a href={`/product/${product._id}`} className="header">{product.name}</a>
-                                                {
-                                                    product.placements.map((placement, placementIndex) => {
-                                                        return <div key={placementIndex} className="meta">
-                                                            <span className="date"><i className="map marker alternate icon"></i> {`${placement.section} > ${placement.aisle} > ${placement.rack}`}</span>
-                                                        </div>;
-                                                    })
-                                                }
-                                                <div className="description">
-                                                    General products
+                                    <div className="content">
+                                        <a href={`/product/${product._id}`} className="header">{product.name}</a>
+                                        {
+                                            product.placements.map((placement, placementIndex) => {
+                                                return <div key={placementIndex} className="meta">
+                                                    <span className="date"><i className="map marker alternate icon"></i> {`${placement.section} > ${placement.aisle} > ${placement.rack}`}</span>
+                                                </div>;
+                                            })
+                                        }
+                                        <div className="description">
+                                            General products
                                                         </div>
-                                            </div>
-                                            <div className="extra content">
-                                            </div>
-                                        </div>;
-                                    })
-                                }
-                            </div>
-                        </div>
+                                    </div>
+                                    <div className="extra content">
+                                    </div>
+                                </div>;
+                            })
+                        }
                     </div>
                 </div>
             </div>

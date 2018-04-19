@@ -11,7 +11,7 @@ class CreateProduct extends Component {
             name: `Organic Product ${props.productsLength + 1}`,
             price: '15',
             keywords: [],
-            placements: ['5ad309d3baa96b4140e3b8c8', '5ad309f5baa96b4140e3b8c9'],
+            placements: [''],
             photoURL: 'https://www.ocado.com/productImages/653/65353011_0_640x640.jpg?identifier=60f2512e90321b2b2790b14af220ba86'
         }
 
@@ -20,6 +20,7 @@ class CreateProduct extends Component {
         this.handleOnScanned = this.handleOnScanned.bind(this);
         this.handleOnPlacementScanned = this.handleOnPlacementScanned.bind(this);
         this.handleAddPlacement = this.handleAddPlacement.bind(this);
+        this.handleRemovePlacement = this.handleRemovePlacement.bind(this);
     }
 
 
@@ -36,6 +37,7 @@ class CreateProduct extends Component {
         }
 
         this.keywordsInstance = Materialize.Chips.init(elem, options);
+        document.getElementById('store-home').classList.remove('active');
     }
 
     handleChange(event) {
@@ -65,6 +67,12 @@ class CreateProduct extends Component {
         this.setState({ placements })
     }
 
+    handleRemovePlacement(index) {
+        const { placements } = this.state;
+        placements.splice(index, 1);
+        this.setState({ placements })
+    }
+
     handleOnSubmit(event) {
         event.preventDefault();
         const keywords = this.keywordsInstance.chipsData.map(keyword => keyword.tag);
@@ -89,51 +97,44 @@ class CreateProduct extends Component {
         const { placements } = this.state;
 
         return (
-            <div className="lime darken-1 full-height">
-                <div className="ui vertical masthead aligned segment">
-                    <div className="ui container full-height pos-rel">
-                        <div className="ui grid">
-                            <div className="column">
-                                <form className="ui form" onSubmit={this.handleOnSubmit} >
-                                    <div className="field">
-                                        <label>Name of the Product</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Bar code ID</label>
-                                        <SEScanner value={this.state.id} placeholder="Product Bar Code" onScanned={this.handleOnScanned} />
-                                    </div>
-                                    <div className="field">
-                                        <label>Price</label>
-                                        <input onChange={this.handleChange} type="number" value={this.state.price} name="price" placeholder="Price" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Keywords</label>
-                                        <div className="chips chips-autocomplete">
-                                            <input type="text" name="keywords" />
-                                        </div>
-                                    </div>
-                                    <div className="field">
-                                        <label>Image link of the Product</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.photoURL} name="photoURL" placeholder="Image link of the Product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Placements</label>
-                                        {
-                                            placements.map((placement, index) => {
-                                                return <div key={index} className="field">
-                                                    <SEScanner placeholder="Placement Bar Code" value={placement} index={index} onScanned={this.handleOnPlacementScanned} />
-                                                </div>;
-                                            })
-                                        }
-                                        <button className="ui button" onClick={this.handleAddPlacement} type="button">Add Another Placement</button>
-                                    </div>
-                                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
-                                </form>
-                            </div>
+            <div className="ui container margin-top-10">
+                <form className="ui form" onSubmit={this.handleOnSubmit} >
+                    <div className="field">
+                        <label>Name of the Product</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the product" />
+                    </div>
+                    <div className="field">
+                        <label>Bar code ID</label>
+                        <SEScanner value={this.state.id} placeholder="Product Bar Code" onScanned={this.handleOnScanned} />
+                    </div>
+                    <div className="field">
+                        <label>Price</label>
+                        <input onChange={this.handleChange} type="number" value={this.state.price} name="price" placeholder="Price" />
+                    </div>
+                    <div className="field">
+                        <label>Keywords</label>
+                        <div className="chips chips-autocomplete">
+                            <input type="text" name="keywords" />
                         </div>
                     </div>
-                </div>
+                    <div className="field">
+                        <label>Image link of the Product</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.photoURL} name="photoURL" placeholder="Image link of the Product" />
+                    </div>
+                    <div className="field">
+                        <label>Placements</label>
+                        {
+                            placements.map((placement, index) => {
+                                return <div key={index} className="field pos-rel">
+                                    <SEScanner placeholder="Placement Bar Code" value={placement} index={index} onScanned={this.handleOnPlacementScanned} />
+                                    {placements.length > 1 && <a className="scandit-delete" onClick={() => { this.handleRemovePlacement(index) }}><i className="material-icons">delete</i></a>}
+                                </div>;
+                            })
+                        }
+                        <button className="ui button" onClick={this.handleAddPlacement} type="button">Add Another Placement</button>
+                    </div>
+                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
+                </form>
             </div>
         );
     }

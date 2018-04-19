@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import LandingPage from './components/LandingPage';
 import PreLoader from './components/PreLoader';
 import FirebaseUtil from './utils/FirebaseUtil';
@@ -8,7 +7,11 @@ import Materialize from 'materialize-css';
 import NoMatch from './components/NoMatch';
 import StoreHome from './components/StoreHome';
 import Store from './components/Store';
+import Stores from './components/Stores';
+import Products from './components/Products';
+import Placements from './components/Placements';
 import Product from './components/Product';
+import Placement from './components/Placement';
 import CustomerHome from './components/CustomerHome';
 import CreateStore from './components/CreateStore';
 import CreateProduct from './components/CreateProduct';
@@ -85,7 +88,7 @@ class App extends Component {
 
     if (loading) {
       return (
-        <div className="App">
+        <div>
           <PreLoader role={user && user.role ? user.role : 'customer'} loading={loading} />
         </div>
       );
@@ -99,10 +102,38 @@ class App extends Component {
         products = store.products;
         placements = store.placements;
       }
+
+      document.body.classList.add(user.role);
     }
 
     return (
-      <div className="App">
+      <div className="ui vertical">
+        {
+          isAuthenticated &&
+          <div className="ui container">
+            <div className="ui pointing menu">
+              <a href='/' id="store-home" className="active item js-menu-item">
+                Home
+              </a>
+              <a href={user.role === 'customer' ? '/stores' : '/placements'} id="store-placements" className="item js-menu-item">
+                {user.role === 'customer' ? 'Stores' : 'Placements'}
+              </a>
+              {
+                user.role === 'store' &&
+                <a href='/products' id="store-products" className="item js-menu-item">
+                  Products
+                </a>
+              }
+              <div className="right menu">
+                <div className={`item hoverable${user.role === 'store' ? ' deep-orange darken-1' : ' lime darken-1'}`}>
+                  <div className="ui transparent input bold text-shadow">
+                    <i className="search icon"></i> Shop Easy
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
         <Router>
           <Switch>
             {
@@ -138,8 +169,24 @@ class App extends Component {
               <Route exact path="/store/:id" render={() => <Store />} />
             }
             {
-              isAuthenticated && user.role === 'customer' &&
+              isAuthenticated &&
               <Route exact path="/product/:id" render={() => <Product />} />
+            }
+            {
+              isAuthenticated &&
+              <Route exact path="/placement/:id" render={() => <Placement />} />
+            }
+            {
+              isAuthenticated && user.role === 'customer' &&
+              <Route exact path="/stores" render={() => <Stores />} />
+            }
+            {
+              isAuthenticated && user.role === 'store' &&
+              <Route exact path="/placements" render={() => <Placements user={user} />} />
+            }
+            {
+              isAuthenticated && user.role === 'store' &&
+              <Route exact path="/products" render={() => <Products user={user} />} />
             }
             <Route component={NoMatch} />
           </Switch>
@@ -161,7 +208,7 @@ class App extends Component {
                     <a className="header">{user.name}</a>
                     <div className="description">
                       {
-                         store ? store.name : user.role === 'store' ? 'You Have not created a Store yet!' : ''
+                        store ? store.name : user.role === 'store' ? 'You Have not created a Store yet!' : ''
                       }
                     </div>
                   </div>

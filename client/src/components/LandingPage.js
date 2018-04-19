@@ -6,8 +6,8 @@ import GoogleIcon from '../images/google.png';
 class LandingPage extends Component {
   render() {
     return (
-      <div className="row margin-zero full-height">
-        <Logo sizeVariant="large" />
+      <div className="row margin-zero full-height-vh">
+        <Logo className="center-align" sizeVariant="large" />
         <div className="col m6 s12 responsive-half deep-orange darken-1">
           <div className="col s12 full-height pos-rel">
             <div className="login-contaier center-align">

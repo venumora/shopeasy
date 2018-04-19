@@ -95,32 +95,27 @@ class CreateStore extends Component {
         // eslint-disable-next-line
         this.autocomplete = new google.maps.places.Autocomplete(input, options);
         this.geolocate();
+        document.getElementById('store-home').classList.remove('active');
     }
 
     render() {
         return (
-            <div className="lime darken-1 full-height">
-                <div className="ui container full-height pos-rel">
-                    <div className="ui grid">
-                        <div className="twelve wide computer eleven wide tablet sixteen wide mobile column">
-                            <form className="ui form" onSubmit={this.handleOnSubmit} >
-                                <div className="field">
-                                    <label>Name of the Store</label>
-                                    <input required onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the store" />
-                                </div>
-                                <div className="field">
-                                    <label>Location</label>
-                                    <input required type="text" id="locationId" name="locationId" placeholder="Location" />
-                                </div>
-                                <div className="field">
-                                    <label>Logo</label>
-                                    <input required onChange={this.handleChange} type="url" value={this.state.logoUrl} name="logoUrl" placeholder="Logo URL" />
-                                </div>
-                                <button className="ui button" type="submit">Submit</button>
-                            </form>
-                        </div>
+            <div className="ui container margin-top-10">
+                <form className="ui form" onSubmit={this.handleOnSubmit} >
+                    <div className="field">
+                        <label>Name of the Store</label>
+                        <input required onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the store" />
                     </div>
-                </div>
+                    <div className="field">
+                        <label>Location</label>
+                        <input required type="text" id="locationId" name="locationId" placeholder="Location" />
+                    </div>
+                    <div className="field">
+                        <label>Logo</label>
+                        <input required onChange={this.handleChange} type="url" value={this.state.logoUrl} name="logoUrl" placeholder="Logo URL" />
+                    </div>
+                    <button className="ui button" type="submit">Submit</button>
+                </form>
                 {
                     this.state.error &&
                     <Modal heading="Error" buttonName="Ok" content={this.state.error.message} show={true} />

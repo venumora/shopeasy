@@ -16,14 +16,30 @@ body {
   height: 100%;
 }
 
+.full-height-vh {
+  height: 100vh;
+}
+
 .responsive-half {
   height: 50%;
 }
 
-.se-logo-large {
+.se-logo {
   height: 15rem;
   width: 15rem;
   z-index: 10;
+}
+
+.se-logo-small {
+  transform: scale(0.5)
+}
+
+body.pushable.customer > .pusher {
+  background-color: #f4511e;
+}
+
+body.pushable.store > .pusher {
+  background-color: #c0ca33;
 }
 
 .circle {
@@ -85,8 +101,14 @@ body {
 }
 
 .scandit {
-  right: 0;
-  top: 14px;
+  right: 10px;
+  top: 3px;
+}
+
+.scandit-delete {
+  right: 100px;
+  top: 10px;
+  position: absolute;
 }
 
 .margin-top-10 {
@@ -114,6 +136,10 @@ body {
   .responsive-half {
     height: 100%;
   }
+
+  .se-logo-small  .responsive-half {
+    height: 50%;
+  }
 }
 
 .profile-card {
@@ -122,4 +148,8 @@ body {
   right: 50px;
   position: absolute;
   bottom: 0;
+}
+
+input {
+  box-sizing: border-box !important;
 }

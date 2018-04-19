@@ -20,8 +20,8 @@ class CreatePlacement extends Component {
         this.generateBarcode = this.generateBarcode.bind(this);
     }
 
-
     componentDidMount() {
+        document.getElementById('store-home').classList.remove('active');        
     }
 
     handleChange(event) {
@@ -34,9 +34,9 @@ class CreatePlacement extends Component {
 
     generateBarcode() {
         if (this.state.section && this.state.aisle && this.state.rack) {
-            const code = JsBarcode("#barcode", 
-                `${this.state.section.slice(0,3)}${this.state.aisle.slice(0,3)}${this.state.rack.slice(0,3)}`, { format: "CODE39", displayValue: true });
-            this.setState({id: code._encodings[0][0].text});
+            const code = JsBarcode("#barcode",
+                `${this.state.section.slice(0, 3)}${this.state.aisle.slice(0, 3)}${this.state.rack.slice(0, 3)}`, { format: "CODE39", displayValue: true });
+            this.setState({ id: code._encodings[0][0].text });
         }
     }
 
@@ -62,48 +62,40 @@ class CreatePlacement extends Component {
 
     render() {
         return (
-            <div className="lime darken-1 full-height">
-                <div className="ui vertical masthead aligned segment">
-                    <div className="ui container full-height pos-rel">
-                        <div className="ui grid">
-                            <div className="twelve wide computer eleven wide tablet sixteen wide mobile column">
-                                <form className="ui form" onSubmit={this.handleOnSubmit} >
-                                    <div className="field">
-                                        <label>Name of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Description of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.description} name="description" placeholder="Description of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Section of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.section} name="section" placeholder="Section of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Aisle of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.aisle} name="aisle" placeholder="Aisle of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Rack of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.rack} name="rack" placeholder="Rack of the product" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Image link of the Placement</label>
-                                        <input onChange={this.handleChange} type="text" value={this.state.photoURL} name="photoURL" placeholder="Image link of the Placement" />
-                                    </div>
-                                    <div className="field pos-rel">
-                                        <label>Generated Barcode</label>
-                                        <input readOnly type="text" value={this.state.id} name="id" placeholder="Generate ID Once All the data is filled" />
-                                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>                                        
-                                        <button className="ui button pos-abs generate-barcode" onClick={this.generateBarcode} type="button">Generate Barcode</button>
-                                    </div>
-                                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
-                                </form>
-                            </div>
-                        </div>
+            <div className="ui container margin-top-10">
+                <form className="ui form" onSubmit={this.handleOnSubmit} >
+                    <div className="field">
+                        <label>Name of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the product" />
                     </div>
-                </div>
+                    <div className="field">
+                        <label>Description of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.description} name="description" placeholder="Description of the product" />
+                    </div>
+                    <div className="field">
+                        <label>Section of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.section} name="section" placeholder="Section of the product" />
+                    </div>
+                    <div className="field">
+                        <label>Aisle of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.aisle} name="aisle" placeholder="Aisle of the product" />
+                    </div>
+                    <div className="field">
+                        <label>Rack of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.rack} name="rack" placeholder="Rack of the product" />
+                    </div>
+                    <div className="field">
+                        <label>Image link of the Placement</label>
+                        <input onChange={this.handleChange} type="text" value={this.state.photoURL} name="photoURL" placeholder="Image link of the Placement" />
+                    </div>
+                    <div className="field pos-rel">
+                        <label>Generated Barcode</label>
+                        <input readOnly type="text" value={this.state.id} name="id" placeholder="Generate ID Once All the data is filled" />
+                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                        <button className="ui button pos-abs generate-barcode" onClick={this.generateBarcode} type="button">Generate Barcode</button>
+                    </div>
+                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
+                </form>
             </div>
         );
     }

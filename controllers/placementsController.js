@@ -12,7 +12,7 @@ module.exports = {
   },
   findById: function (req, res) {
     db.Placement
-      .find({ id: ObjectId(req.params.id) })
+      .findOne({ _id: ObjectId(req.params.id) })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },

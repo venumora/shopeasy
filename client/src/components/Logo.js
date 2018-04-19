@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 class Logo extends Component {
   render() {
     return (
-        <div className={`circle hoverable bold center-align se-logo-${this.props.sizeVariant}`}>
-          <div className="col m6 s12 responsive-half lime darken-1 full-height full-height">
+        <div className={`circle hoverable bold ${this.props.className} se-logo se-logo-${this.props.sizeVariant}`}>
+          <div className="col m6 s12 responsive-half lime darken-1 full-height">
             <div className="valign-wrapper full-height">
               <h1 className="col s12 text-shadow">Shop</h1>
             </div>
