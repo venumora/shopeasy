@@ -8,7 +8,11 @@ const PlacementSchema = new Schema({
   aisle: { type: String, required: false },
   section: { type: String, required: false },
   rack: { type: String, required: false },
-  photoURL: { type: String, required: false } 
+  photoURL: { type: String, required: false },
+  store: {
+    type: Schema.Types.ObjectId,
+    ref: "Store"
+  }
 });
 
 const Placement = mongoose.model("Placement", PlacementSchema);

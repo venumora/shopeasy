@@ -107,7 +107,7 @@ class App extends Component {
     }
 
     return (
-      <div className="ui vertical">
+      <div className="ui vertical margin-bottom-30">
         {
           isAuthenticated &&
           <div className="ui container">

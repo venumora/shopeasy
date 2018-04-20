@@ -8,7 +8,7 @@ class CreateStore extends Component {
         this.state = {
             name: '',
             locationId: '',
-            logoUrl: 'http://www.guessthelogo.com/images/game-image/store-logo-game.gif',
+            logoURL: 'http://www.guessthelogo.com/images/game-image/store-logo-game.gif',
             error: null
         }
 
@@ -26,9 +26,9 @@ class CreateStore extends Component {
 
     handleOnSubmit(event) {
         event.preventDefault();
-        const { name, logoUrl } = this.state;
+        const { name, logoURL } = this.state;
         const locationDetails = this.autocomplete.getPlace();
-        if (name && logoUrl && locationDetails && locationDetails.id) {
+        if (name && logoURL && locationDetails && locationDetails.id) {
             const photos = [];
             if (locationDetails.photos) {
                 locationDetails.photos.forEach(photo => {
@@ -38,7 +38,7 @@ class CreateStore extends Component {
             const storeData = {
                 name: name,
                 locationId: locationDetails.id,
-                logoUrl: logoUrl,
+                logoURL: logoURL,
                 user: this.props.userId,
                 address: locationDetails.formatted_address,
                 phone: locationDetails.formatted_phone_number,
@@ -112,7 +112,7 @@ class CreateStore extends Component {
                     </div>
                     <div className="field">
                         <label>Logo</label>
-                        <input required onChange={this.handleChange} type="url" value={this.state.logoUrl} name="logoUrl" placeholder="Logo URL" />
+                        <input required onChange={this.handleChange} type="url" value={this.state.logoURL} name="logoURL" placeholder="Logo URL" />
                     </div>
                     <button className="ui button" type="submit">Submit</button>
                 </form>

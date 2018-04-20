@@ -18,6 +18,7 @@ class Placement extends Component {
                 this.setState({ placement: placement.data });
             }
         });
+        document.getElementById('store-home').classList.remove('active');
     }
 
     componentDidUpdate() {
@@ -33,6 +34,10 @@ class Placement extends Component {
         return (
             <div className="ui container margin-top-10">
                 <form className="ui form" >
+                    <div className="field pos-rel">
+                        <label>Barcode of the Placement</label>
+                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                    </div>
                     <div className="field">
                         <label>Name:</label>
                         <input readOnly type="text" value={placement.name} name="name" />
@@ -54,13 +59,8 @@ class Placement extends Component {
                         <input readOnly type="text" value={placement.rack} name="rack" />
                     </div>
                     <div className="field">
-                        <label>Image link:</label>
-                        <img alt={placement.name} src={placement.photoURL} />
-                    </div>
-                    <div className="field pos-rel">
-                        <label>Generated Barcode</label>
-                        <input readOnly type="text" value={placement.id} name="id" />
-                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                        <label>Layout Image:</label>
+                        <img className="full-height full-width" alt={placement.name} src={placement.photoURL} />
                     </div>
                 </form>
             </div>

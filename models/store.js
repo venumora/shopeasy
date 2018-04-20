@@ -5,7 +5,7 @@ const StoreSchema = new Schema({
     type: String,
     required: true
   },
-  logoUrl: {
+  logoURL: {
     type: String,
     required: true
   },

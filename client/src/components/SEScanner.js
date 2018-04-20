@@ -66,7 +66,7 @@ class SEScanner extends Component {
                     <input type="text" readOnly value={this.props.value} placeholder={this.props.placeholder} />
                     <button className="btn waves-effect waves-light pos-abs scandit" onClick={this.handleOnClick} type="button" name="action"><i className="material-icons">camera_enhance</i></button>
                 </div>
-                <div ref={s => this.scannerModal = s} className="modal">
+                <div ref={s => this.scannerModal = s} className="modal full-width-responsive">
                     <div ref={s => this.barCodeScanner = s} className="modal-content left-align">
                     </div>
                     <div className="modal-footer">

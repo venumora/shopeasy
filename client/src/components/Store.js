@@ -8,7 +8,8 @@ class Store extends Component {
         this.state = {
             products: [],
             searchKey: '',
-            store: ''
+            store: '',
+            storeData: {}
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -34,28 +35,43 @@ class Store extends Component {
     componentDidMount() {
         API.getStore(this.props.match.params.id).then(store => {
             if (store && store.data) {
-                this.setState({ products: store.data.products, store: store.data._id });
+                this.setState({
+                    products: store.data.products,
+                    store: store.data._id,
+                    storeData: store.data,
+                });
             }
         });
     }
 
     render() {
-        const { products } = this.state;
+        const { products, storeData } = this.state;
         return (
             <div className="ui container margin-top-10">
-                <div className="row white">
-                    <div className="col s12">
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <i className="material-icons prefix">search</i>
-                                <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
-                                <label htmlFor="autocomplete-input">What are you looking for?</label>
+                {
+                    products.length === 0 &&
+                    <h2>{`${storeData.name} did not register a product yet.`}</h2>
+                }
+                {
+                    products.length !== 0 &&
+                    <div className="row white">
+                        <div className="col s12">
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <i className="material-icons prefix">search</i>
+                                    <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
+                                    <label htmlFor="autocomplete-input">What are you looking for?</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
                 <div className="col s12 margin-top-10">
-                    <div className="ui four doubling cards">
+                    <div className="margin-top-10"><a href={storeData.locationURL} target="_blank"><h1>{storeData.name}</h1></a></div>
+                    <div className="date"><i className="map marker alternate icon"></i> {storeData.address}</div>
+                    <div className="date margin-bottom-10"><i className="phone icon"></i> {storeData.phone}</div>
+                    <br />
+                    <div className="ui four doubling cards margin-top-10">
                         {
                             products.map((product, index) => {
                                 return <div key={index} className="card">
@@ -71,11 +87,6 @@ class Store extends Component {
                                                 </div>;
                                             })
                                         }
-                                        <div className="description">
-                                            General products
-                                                        </div>
-                                    </div>
-                                    <div className="extra content">
                                     </div>
                                 </div>;
                             })

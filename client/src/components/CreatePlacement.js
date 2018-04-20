@@ -43,7 +43,7 @@ class CreatePlacement extends Component {
     handleOnSubmit(event) {
         event.preventDefault();
         if (this.state.id) {
-            const productData = {
+            const placementData = {
                 id: this.state.id,
                 name: this.state.name,
                 store: this.props.storeId,
@@ -54,7 +54,7 @@ class CreatePlacement extends Component {
                 photoURL: this.state.photoURL
             };
 
-            API.savePlacement(productData).then(() => {
+            API.savePlacement(placementData).then(() => {
                 window.location = '/';
             });
         }
@@ -66,23 +66,23 @@ class CreatePlacement extends Component {
                 <form className="ui form" onSubmit={this.handleOnSubmit} >
                     <div className="field">
                         <label>Name of the Placement</label>
-                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the product" />
+                        <input onChange={this.handleChange} type="text" value={this.state.name} name="name" placeholder="Name of the placement" />
                     </div>
                     <div className="field">
                         <label>Description of the Placement</label>
-                        <input onChange={this.handleChange} type="text" value={this.state.description} name="description" placeholder="Description of the product" />
+                        <input onChange={this.handleChange} type="text" value={this.state.description} name="description" placeholder="Description of the placement" />
                     </div>
                     <div className="field">
                         <label>Section of the Placement</label>
-                        <input onChange={this.handleChange} type="text" value={this.state.section} name="section" placeholder="Section of the product" />
+                        <input onChange={this.handleChange} type="text" value={this.state.section} name="section" placeholder="Section of the placement" />
                     </div>
                     <div className="field">
                         <label>Aisle of the Placement</label>
-                        <input onChange={this.handleChange} type="text" value={this.state.aisle} name="aisle" placeholder="Aisle of the product" />
+                        <input onChange={this.handleChange} type="text" value={this.state.aisle} name="aisle" placeholder="Aisle of the placement" />
                     </div>
                     <div className="field">
                         <label>Rack of the Placement</label>
-                        <input onChange={this.handleChange} type="text" value={this.state.rack} name="rack" placeholder="Rack of the product" />
+                        <input onChange={this.handleChange} type="text" value={this.state.rack} name="rack" placeholder="Rack of the placement" />
                     </div>
                     <div className="field">
                         <label>Image link of the Placement</label>

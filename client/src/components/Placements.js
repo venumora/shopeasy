@@ -17,7 +17,7 @@ class Placements extends Component {
         this.setState({ modalInstance });
         document.getElementById('store-home').classList.remove('active');
         document.getElementById('store-placements').classList.add('active');
-        document.getElementById('store-products').classList.remove('active');  
+        document.getElementById('store-products').classList.remove('active');
     }
 
 
@@ -67,16 +67,34 @@ class Placements extends Component {
                                                 </div>
                                                 <div className="content">
                                                     <a href={`/placement/${placement._id}`} className="header">{placement.name}</a>
+                                                    <div className="meta">{`Section: ${placement.section}`}</div>
+                                                    <div className="meta">{`Aisle: ${placement.aisle}`}</div>
+                                                    <div className="meta">{`Rack: ${placement.rack}`}</div>
                                                 </div>
                                             </div>;
                                         })
+                                    }
+                                    {
+                                        placements.length === 0 &&
+                                        <div className="ui container margin-top-10">
+                                            <h2>Start creating placements and products</h2>
+                                        </div>
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
-                <div ref={s => this.barcodes = s} className="modal">
+                {
+                    !store &&
+                    <div className="col s12">
+                        <div className="row margin-top-10">
+                            <h1>You have not created a store yet. <a href='/createstore' className="ui primary button">Create Store <i className="right arrow icon"></i></a> and Help your customers</h1>
+                        </div>
+                    </div>
+
+                }
+                <div ref={s => this.barcodes = s} className="modal full-width-responsive">
                     <div className="modal-content left-align">
                         <div className="ui cards col s12">
                             {

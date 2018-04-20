@@ -14,9 +14,9 @@ class StoreHome extends Component {
         indicators: true
       });
     }
-    document.getElementById('store-home').classList.add('active');  
-    document.getElementById('store-placements').classList.remove('active');    
-    document.getElementById('store-products').classList.remove('active');          
+    document.getElementById('store-home').classList.add('active');
+    document.getElementById('store-placements').classList.remove('active');
+    document.getElementById('store-products').classList.remove('active');
   }
 
   render() {
@@ -65,33 +65,10 @@ class StoreHome extends Component {
         }
         {
           !store &&
-          <div className="ui grid">
-            <div className="four wide computer five wide tablet sixteen wide mobile column">
-              <div className="ui card profile-card">
-                <div className="image">
-                  <img alt={user.name} src={user.photoURL} />
-                </div>
-                <div className="content">
-                  <a className="header">{user.name}</a>
-                  <div className="description">
-                    {
-                      store ? store.name : 'You Have not created a Store yet!'
-                    }
-                  </div>
-                </div>
-                <div className="extra content">
-                  <a>
-                    <i className="product hunt icon"></i>
-                    {`You have ${store && products ? products.length : 0} products`}
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="twelve wide computer eleven wide tablet sixteen wide mobile column">
-              <h1 className="ui inverted header">Create a Store</h1>
-              <h2>Help your valuable customers to find things Easily!</h2>
-              <a href='/createstore' className="ui primary button">Create Store <i className="right arrow icon"></i></a>
-            </div>
+          <div className="margin-top-10">
+            <h1 className="ui inverted header">Create a Store</h1>
+            <h2>Help your valuable customers to find things Easily!</h2>
+            <a href='/createstore' className="ui primary button">Create Store <i className="right arrow icon"></i></a>
           </div>
         }
       </div>

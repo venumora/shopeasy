@@ -28,21 +28,16 @@ class Stores extends Component {
                         stores.map((store, index) => {
                             return <div key={index} className="card">
                                 <div className="image">
-                                    <img className="full-height full-width" alt={store.name} src={store.logoUrl} />
+                                    <img className="full-height full-width" alt={store.name} src={store.logoURL} />
                                 </div>
                                 <div className="content">
                                     <a href={`/store/${store._id}`} className="header">{store.name}</a>
                                     <div className="meta">
-                                        <span className="date"><i className="map marker alternate icon"></i> Belmond</span>
+                                        <span className="date"><i className="map marker alternate icon"></i> {store.address}</span>
                                     </div>
-                                    <div className="description">
-                                        General stores
-                            </div>
                                 </div>
                                 <div className="extra content">
-                                    <a>
-                                        <i className="product hunt icon"></i>
-                                        {store.products.length} products</a>
+                                    <a><i className="product hunt icon"></i>{store.products.length} products</a>
                                 </div>
                             </div>;
                         })
