@@ -103,7 +103,7 @@ class CreatePlacement extends Component {
                     <div className="field pos-rel">
                         <label>Generated Barcode</label>
                         <input readOnly type="text" value={this.state.id} name="id" placeholder="Generate ID Once All the data is filled" />
-                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10 full-width" id="barcode"></svg>
                         <button className="ui button pos-abs generate-barcode" onClick={this.generateBarcode} type="button">Generate Barcode</button>
                     </div>
                     <button className="btn waves-effect waves-light margin-bottom-30" type="submit">Submit</button>

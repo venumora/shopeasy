@@ -60,7 +60,7 @@ class Product extends Component {
                     </div>
                     <div className="field pos-rel">
                         <label>Barcode of the Product</label>
-                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                        <svg width="0" height="0" className="margin-top-10 full-width margin-bottom-10" id="barcode"></svg>
                     </div>
                     <div className="field">
                         <label>Price</label>
@@ -78,7 +78,7 @@ class Product extends Component {
                     </div>
                     <div className="field">
                         <label>Product Image: </label>
-                        <img alt={product.name} src={product.photoURL} />
+                        <img className="full-height full-width" alt={product.name} src={product.photoURL} />
                     </div>
                 </form>
             </div>

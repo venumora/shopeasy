@@ -36,7 +36,7 @@ class Placement extends Component {
                 <form className="ui form" >
                     <div className="field pos-rel">
                         <label>Barcode of the Placement</label>
-                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
+                        <svg width="0" height="0" className="margin-top-10 margin-bottom-10 full-width" id="barcode"></svg>
                     </div>
                     <div className="field">
                         <label>Name:</label>
@@ -60,7 +60,7 @@ class Placement extends Component {
                     </div>
                     <div className="field">
                         <label>Layout Image:</label>
-                        <img alt={placement.name} src={placement.photoURL} />
+                        <img className="full-height full-width" alt={placement.name} src={placement.photoURL} />
                     </div>
                 </form>
             </div>

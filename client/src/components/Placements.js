@@ -104,7 +104,7 @@ class Placements extends Component {
                                             <div className="header">{placement.name}</div>
                                             <div className="meta">{placement.section} {placement.aisle} {placement.rack}</div>
                                             <div className="description">
-                                                <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id={`barcode${index}`}></svg>
+                                                <svg width="0" height="0" className="margin-top-10 margin-bottom-10 full-width" id={`barcode${index}`}></svg>
                                             </div>
                                         </div>
                                     </div>;
