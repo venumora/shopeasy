@@ -7,7 +7,7 @@ const ObjectId = require('mongodb').ObjectID;
 // This file empties the Products collection and inserts the products below
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://heroku_f920lkcw:g11pqp87ojterlrmrdlhs6ki6l@ds117729.mlab.com:17729/heroku_f920lkcw",
+  process.env.MONGODB_URI || "mongodb://localhost/shopeasy",
   {
     useMongoClient: true
   }
