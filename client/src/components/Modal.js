@@ -10,6 +10,7 @@ class Modal extends Component {
 
         this.open = this.open.bind(this);
         this.close = this.close.bind(this);
+        this.handleOnClose = this.handleOnClose.bind(this);
     }
 
     open() {
@@ -21,6 +22,12 @@ class Modal extends Component {
     close() {
         if (this.state.modalInstance) {
             this.state.modalInstance.close();
+        }
+    }
+
+    handleOnClose() {
+        if (this.props.onClose) {
+            this.props.onClose();
         }
     }
 
@@ -48,7 +55,7 @@ class Modal extends Component {
                     <p>{this.props.content}</p>
                 </div>
                 <div className="modal-footer">
-                    <a className="btn modal-action modal-close waves-effect red waves-red">{this.props.buttonName}</a>
+                    <a onClick={this.handleOnClose} className="btn modal-action modal-close waves-effect red waves-red">{this.props.buttonName}</a>
                 </div>
             </div>
         );

@@ -63,7 +63,7 @@ class SEScanner extends Component {
         return (
             <div>
                 <div className="field pos-rel">
-                    <input type="text" readOnly value={this.props.value} placeholder={this.props.placeholder} />
+                    <input required type="text" readOnly value={this.props.value} placeholder={this.props.placeholder} />
                     <button className="btn waves-effect waves-light pos-abs scandit" onClick={this.handleOnClick} type="button" name="action"><i className="material-icons">camera_enhance</i></button>
                 </div>
                 <div ref={s => this.scannerModal = s} className="modal full-width-responsive">

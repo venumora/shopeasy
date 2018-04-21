@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
 import JsBarcode from 'jsbarcode';
+import Modal from '../components/Modal';
+
 
 class CreatePlacement extends Component {
     constructor(props) {
@@ -12,12 +14,18 @@ class CreatePlacement extends Component {
             aisle: `A${props.placementsLength + 1}`,
             section: `Organic Produce`,
             rack: `R${props.placementsLength + 1}`,
-            photoURL: 'https://ars.els-cdn.com/content/image/1-s2.0-S002243590400003X-gr3.jpg'
+            photoURL: 'https://annieriedora.files.wordpress.com/2012/06/newest-garden-and-field-day-prep-stuff-037.jpg',
+            error: null            
         }
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.generateBarcode = this.generateBarcode.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);        
+    }
+
+    handleModalClose() {
+        this.setState({ error: null });
     }
 
     componentDidMount() {
@@ -56,7 +64,11 @@ class CreatePlacement extends Component {
 
             API.savePlacement(placementData).then(() => {
                 window.location = '/';
+            }).catch((errorDetails) => {
+                this.setState({ error: { message: "Something went wrong! Please try later" } });
             });
+        } else {
+            this.setState({ error: { message: "Placemet barcode is required! Click Generate Barcode." } });
         }
     }
 
@@ -96,6 +108,10 @@ class CreatePlacement extends Component {
                     </div>
                     <button className="btn waves-effect waves-light" type="submit">Submit</button>
                 </form>
+                {
+                    this.state.error &&
+                    <Modal onClose={this.handleModalClose} heading="Error" buttonName="Ok" content={this.state.error.message} show={true} />
+                }
             </div>
         );
     }

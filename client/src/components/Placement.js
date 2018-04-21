@@ -60,7 +60,7 @@ class Placement extends Component {
                     </div>
                     <div className="field">
                         <label>Layout Image:</label>
-                        <img className="full-height full-width" alt={placement.name} src={placement.photoURL} />
+                        <img alt={placement.name} src={placement.photoURL} />
                     </div>
                 </form>
             </div>

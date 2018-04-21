@@ -14,6 +14,11 @@ class CreateStore extends Component {
 
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleModalClose = this.handleModalClose.bind(this);        
+    }
+
+    handleModalClose() {
+        this.setState({ error: null });
     }
 
     handleChange(event) {
@@ -118,7 +123,7 @@ class CreateStore extends Component {
                 </form>
                 {
                     this.state.error &&
-                    <Modal heading="Error" buttonName="Ok" content={this.state.error.message} show={true} />
+                    <Modal  onClose={this.handleModalClose} heading="Error" buttonName="Ok" content={this.state.error.message} show={true} />
                 }
             </div>
         );

@@ -6,7 +6,7 @@ const ObjectId = require('mongodb').ObjectID;
 module.exports = {
   findAll: function (req, res) {
     const regQuery = { $regex: new RegExp(req.params.key, 'i') };
-    const query = req.params.key === 'all' ? undefined : {
+    const query = req.params.key === 'all' ? { store: ObjectId(req.params.store) } : {
       $and: [
         { store: ObjectId(req.params.store) },
         { $or: [{ name: regQuery }, { keywords: { $in: [new RegExp(req.params.key, 'i')] } }] }

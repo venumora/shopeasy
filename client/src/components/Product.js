@@ -78,7 +78,7 @@ class Product extends Component {
                     </div>
                     <div className="field">
                         <label>Product Image: </label>
-                        <img alt={product.name} className="full-height full-width" src={product.photoURL} />
+                        <img alt={product.name} src={product.photoURL} />
                     </div>
                 </form>
             </div>

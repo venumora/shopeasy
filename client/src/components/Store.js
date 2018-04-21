@@ -9,7 +9,8 @@ class Store extends Component {
             products: [],
             searchKey: '',
             store: '',
-            storeData: {}
+            storeData: {},
+            isSearch: false
         }
 
         this.handleOnChange = this.handleOnChange.bind(this);
@@ -23,7 +24,7 @@ class Store extends Component {
         if (!value || value.length > 2) {
             API.getProducts(this.state.store, value || 'all').then(products => {
                 if (products && products.data) {
-                    this.setState({ products: products.data });
+                    this.setState({ products: products.data, isSearch: true });
                 }
             });
         }
@@ -45,26 +46,23 @@ class Store extends Component {
     }
 
     render() {
-        const { products, storeData } = this.state;
+        const { products, storeData, isSearch } = this.state;
         return (
             <div className="ui container margin-top-10">
-                {
-                    products.length === 0 &&
-                    <h2>{`${storeData.name} did not register a product yet.`}</h2>
-                }
-                {
-                    products.length !== 0 &&
-                    <div className="row white">
-                        <div className="col s12">
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <i className="material-icons prefix">search</i>
-                                    <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
-                                    <label htmlFor="autocomplete-input">What are you looking for?</label>
-                                </div>
+                <div className="row white">
+                    <div className="col s12">
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <i className="material-icons prefix">search</i>
+                                <input value={this.state.searchKey} name="searchKey" onChange={this.handleOnChange} type="text" id="autocomplete-input" className="autocomplete" />
+                                <label htmlFor="autocomplete-input">What are you looking for?</label>
                             </div>
                         </div>
                     </div>
+                </div>
+                {
+                    products.length === 0 &&
+                    <h2>{isSearch ? 'No Results found for your search!!' : `${storeData.name} did not register a product yet.`}</h2>
                 }
                 <div className="col s12 margin-top-10">
                     <div className="margin-top-10"><a href={storeData.locationURL} target="_blank"><h1>{storeData.name}</h1></a></div>

@@ -76,7 +76,7 @@ class Placements extends Component {
                                     }
                                     {
                                         placements.length === 0 &&
-                                        <div className="ui container margin-top-10">
+                                        <div className="col s12 margin-top-10">
                                             <h2>Start creating placements and products</h2>
                                         </div>
                                     }
