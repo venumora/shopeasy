@@ -119,7 +119,7 @@ class CreateStore extends Component {
                         <label>Logo</label>
                         <input required onChange={this.handleChange} type="url" value={this.state.logoURL} name="logoURL" placeholder="Logo URL" />
                     </div>
-                    <button className="ui button" type="submit">Submit</button>
+                    <button className="ui button margin-bottom-30" type="submit">Submit</button>
                 </form>
                 {
                     this.state.error &&

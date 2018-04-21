@@ -159,7 +159,7 @@ class CreateProduct extends Component {
                         }
                         <button className="ui button" onClick={this.handleAddPlacement} type="button">Add Another Placement</button>
                     </div>
-                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
+                    <button className="btn waves-effect waves-light margin-bottom-30" type="submit">Submit</button>
                 </form>
                 {
                     this.state.error &&

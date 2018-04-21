@@ -122,11 +122,15 @@ body.pushable.store > .pusher {
 
 .generate-barcode {
   right: 0;
-  top: 25px;
+  top: 26px;
 }
 
 .full-width {
   width: 100% !important;
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px;
 }
 
 .carousel-header {

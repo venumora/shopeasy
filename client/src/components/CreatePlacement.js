@@ -106,7 +106,7 @@ class CreatePlacement extends Component {
                         <svg width="0" height="0" className="margin-top-10 margin-bottom-10" id="barcode"></svg>
                         <button className="ui button pos-abs generate-barcode" onClick={this.generateBarcode} type="button">Generate Barcode</button>
                     </div>
-                    <button className="btn waves-effect waves-light" type="submit">Submit</button>
+                    <button className="btn waves-effect waves-light margin-bottom-30" type="submit">Submit</button>
                 </form>
                 {
                     this.state.error &&
